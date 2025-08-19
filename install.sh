@@ -16,7 +16,7 @@ fi
 
 if [[ "$(id -u)" -ne 0 ]]; then
     echo "This script requires root privileges. Re-running with sudo...."
-    if ! sudo "$0" "$@"; then
+    if ! sudo -E "$0" "$@"; then # E flag tells sudo to preserve your environment variables (including PATH)
         echo "Error : Failed to obtain root privileges..."
         exit 1
     fi

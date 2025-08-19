@@ -26,9 +26,12 @@ set -euo pipefail # enabling strict error-handling behaviors.
 
 Browsers=("Google-Chrome" "Brave" "Zen Browser")
 
-selected_browsers=$(gum choose --no-limit \ --header "Select browsers:" \ --selected-prefix "✓ " --unselected_prefix " " \ "${Browsers[@]}")
+# selected_browsers=gum choose --no-limit "$(Browsers)" ## wrong line
+echo "Select Your Browsers :"
+selected_browsers=$(gum choose --no-limit "${Browsers[@]}")
 
-echo -ne "You selected : $selected_browsers"
+echo "You selected : $(echo "$selected_browsers" | tr '\n' ', ' | sed 's/[[:space:]]*,[[:space:]]*$//')"  # here $ means at the end of the line
+
 # # Categories
 # 1 browsers(chrome,brave,zen_browser,)
 # flatpak
@@ -41,3 +44,16 @@ echo -ne "You selected : $selected_browsers"
 # 6 Unity Hub
 
 # shfmt -i 4 -ci -w "script.sh" // run this to format the code
+
+<<COMMENT
+ed 's/, $//'
+sed is a "stream editor" - it can find and replace text patterns.
+
+s/ = substitute/replace command
+
+, $ = comma-space at the end of line ($ means "end of line")
+
+// = replace with nothing (delete it)
+
+So sed 's/, $//' means: "find comma-space at the end of line and delete it"
+COMMENT

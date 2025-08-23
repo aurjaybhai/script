@@ -38,7 +38,7 @@ if [[ -n "$selected_browsers" ]]; then
     # Convert to array for processing
     while IFS= read -r browser; do
         case "$browser" in
-        "Google Chrome")
+        "Google Chrome"
             echo "Downloading Google Chrome" # after echo statement do not put parenthesis()
             # Adding Chrome Commands
             CHROME_URL="https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm"

@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-Browsers=("Google Chrome" "Brave" "Zen Browser")
+
 
 # Funtion 1 : Check if we have required tools
 # homebrew installed
@@ -69,8 +69,9 @@ get_user_choices() {
     echo "Select Your Browsers : "
     selected_browser=$(gum choose --no-limit "${Browsers[@]}") # use the dollar sign outside the curly braces
 
-    echo "${selected_browser}"
+    echo " You Choose : ${selected_browser}"
 }
 
-echo "✓ Running on Fedora $VERSION_ID with DNF package manager."
-
+check_fedora_version
+check_requirements
+get_user_choices

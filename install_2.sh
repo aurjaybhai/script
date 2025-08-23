@@ -56,6 +56,11 @@ check_requirements() {
     # Check if the gum is installed or not
     if ! command -v gum &>/dev/null; then
         brew install gum
+        echo >> /home/user/.bashrc
+        echo "eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv) >> /home/user/.bashrc"
+        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+        # Install Homebrew's dependencies if you have sudo access:
+        sudo dnf group install development-tools
     else
         echo "Please Check Your Internet Connection..."
     fi

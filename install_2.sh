@@ -45,6 +45,19 @@ check_requirements() {
         if [[ $response =~ ^[Yy]$ ]]; then # This line uses regex(regular experession) pattern "=~  ==> this is the regex match operator"
             # "^" Means start of the string #"end of the string($)"
             /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+            {
+                echo " "
+                echo '# Homebrew configuration' >>"$HOME/.bashrc"
+                echo eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+            } >>"$HOME/.bashrc"
+            # Load Homebrew in current session
+            eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+            # Install Homebrew's dependencies if you have sudo access:
+            sudo dnf group install -y "development-tools"
+
+            echo ""
         else
             echo "Please install Homebrew manually first"
             exit 1
@@ -56,10 +69,7 @@ check_requirements() {
         echo "Installing gum......."
         brew install gum
         # echo >>/home/user/.bashrc
-        echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >>"$HOME/.bashrc"
-        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-        # Install Homebrew's dependencies if you have sudo access:
-        sudo dnf group install -y "development-tools"
+
     else
         echo "gum is already is installed"
     fi

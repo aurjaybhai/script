@@ -2,8 +2,6 @@
 
 set -euo pipefail
 
-
-
 # Funtion 1 : Check if we have required tools
 # homebrew installed
 # gum installed
@@ -55,14 +53,15 @@ check_requirements() {
 
     # Check if the gum is installed or not
     if ! command -v gum &>/dev/null; then
+        echo "Installing gum......."
         brew install gum
-        echo >> /home/user/.bashrc
-        echo "eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv) >> /home/user/.bashrc"
+        # echo >>/home/user/.bashrc
+        echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >>"$HOME/.bashrc"
         eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
         # Install Homebrew's dependencies if you have sudo access:
-        sudo dnf group install development-tools
+        sudo dnf group install -y "development-tools"
     else
-        echo "Please Check Your Internet Connection..."
+        echo "gum is already is installed"
     fi
 
 }
@@ -74,7 +73,7 @@ get_user_choices() {
     echo "Select Your Browsers : "
     selected_browser=$(gum choose --no-limit "${Browsers[@]}") # use the dollar sign outside the curly braces
 
-    echo " You Choose : ${selected_browser}"
+    echo "You Choose: $selected_browser"
 }
 
 check_fedora_version

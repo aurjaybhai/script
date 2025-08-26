@@ -1,0 +1,47 @@
+sudo ubuntu-drivers devices or install through autoinstall drivers if you are having
+difficulty in choosing your gpu drivers
+# (optional) Install Graphich drivers(GPU)
+
+Install flatpak(obs-studio,mission center,discord)
+
+Install the MultiMedia Codecs (for playing  some format videos)
+===========================================
+sudo apt install ubuntu-restricted-extras
+if still the video does not play go to vlc
+<settings in the Input/Codecs>
+<then disable>
+<Hardware-accelerated decoding>
+===========================================	
+htop
+fastfetch
+bpytop
+clang
+cargo
+libc6-i386 
+libc6-x32 
+libu2f-udev
+samba-common-bin
+exfat-fuse
+default-jdk
+curl
+wget 
+unrar
+linux-headers-$(uname -r)
+linux-headers-generic
+git
+gstreamer1.0-vaapi 
+unzip
+ntfs-3g
+p7zip 
+bzip2       
+tar
+          
+              
+               
+               
+               
+            
+               
+               
+                
+

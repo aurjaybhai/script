@@ -1,0 +1,9 @@
+git
+curl
+wget
+<--build-essential(sudo dnf group install development-tools)
+sudo dnf install @development-tools-->
+fastfetch ==> <--sudo add-apt-repository ppa:zhangsongcui3371/fastfetch
+sudo apt update
+sudo apt install fastfetch -->(sudo dnf install fastfetch)
+

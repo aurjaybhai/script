@@ -1,0 +1,8 @@
+Improve battery life
+Fedora is optimized more for desktops than laptops, so it might not offer the best battery life by default. 
+
+So it’s recommended to adjust the power setting to optimize the battery life on laptops by installing the advanced power management tool TLP.  Run the below commands to setup TLP:
+
+sudo dnf5 install tlp
+sudo systemctl enable tlp
+sudo systemctl start tlp

@@ -1,0 +1,23 @@
+Steps to install steam & setup
+
+To check whether nvidia drivers are installed
+==> $ nvidia-smi
+
+To install GPU Drivers in ubuntu
+$ sudo ubuntu-drivers autoinstall
+
+if you get nvidia 32-bit not found error while opening the steam
+sudo dpkg --add-architecture i386
+sudo apt update
+sudo apt install libnvidia-gl-560:i386
+
+========================================================================================================================
+=====================================================================================================================================
+Go to steam 
+> settings
+> select compatibility
+> enable steam play for all other titles
+> then restart the steam
+now to check which windows game work with proton
+got the website : protondb.com
+ 

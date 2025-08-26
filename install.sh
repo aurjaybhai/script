@@ -92,7 +92,13 @@ if [[ $ID == "ubuntu" ]]; then
 
 elif [[ $ID == "fedora" ]]; then
     echo "Installing fedora packages...."
-    fedora_packages=("git" "curl" "wget")
+    fedora_packages=("git" "curl" "wget" "htop" "bpytop" "clang" "cargo"
+        "glibc-devel.i686" "glibc-devel.x32"
+        "libu2f-udev" "samba-common" "unzip" "ntfs-3g"
+        "p7zip" "p7zip-plugins" "bzip2" "tar"
+        "java-21-openjdk-devel" "python3-pip"
+        "kernel-devel" "kernel-headers"
+        "unrar")
 
     for pkg in "${fedora_packages[@]}"; do
         install_package "$pkg"
@@ -101,6 +107,27 @@ elif [[ $ID == "fedora" ]]; then
 else
     echo "No Package list defined for $ID"
 fi
+
+#Installing flatpak on ubuntu
+
+if [[ $ID == "ubuntu" ]]; then
+    echo "Installing Flatpak on Ubuntu"
+    install_package "flatpak"
+    install_package "gnome-software-plugin-flatpak"
+    flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+elif [[ $ID == "fedora" ]]; then
+    echo "Installing Flatpak on fedora"
+    install_package "flatpak"
+    flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+else
+    echo "This script is not made for $ID only supports ubuntu and fedora"
+fi
+
+
+
+
+
+
 
 #FEDORA
 #  android-tools

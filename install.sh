@@ -4,6 +4,8 @@ set -euo pipefail
 
 # First Checked whether the user is using linux operating system
 
+LOG_FILE="/tmp/system-setup-$(date +%Y%m%d-%H%M%S).log"
+
 if [[ ! -f /etc/os-release ]]; then
     echo "You are not using linux operating system"
     exit 1
@@ -19,16 +21,16 @@ source /etc/os-release
 # VERSION_ID="24.04"
 # ID=ubuntu
 
-ubuntu() {
-    if [[ $ID == "ubuntu" ]]; then
-        echo "Using Ubuntu $VERSION_ID"
-    fi
-}
-fedora() {
-    if [[ $ID == "fedora" ]]; then
-        echo "Using Fedora $VERSION_ID"
-    fi
-}
+# ubuntu() {
+#     if [[ $ID == "ubuntu" ]]; then
+#         echo "Using Ubuntu $VERSION_ID"
+#     fi
+# }
+# fedora() {
+#     if [[ $ID == "fedora" ]]; then
+#         echo "Using Fedora $VERSION_ID"
+#     fi
+# }
 
 if [[ $ID == "ubuntu" ]]; then
     echo "You are using $NAME $VERSION_ID"
@@ -38,16 +40,17 @@ else
     echo "This script is designed for ubuntu/debian and fedora system only"
     exit 1
 fi
-
-if [[ $ID == "ubuntu" ]]; then
-    sudo apt -y update
-elif [[ $ID == "fedora" ]]; then
-    sudo dnf -y update
-else
-    echo "error"
-    exit 1
-fi
-
+update_system() {
+    if [[ $ID == "ubuntu" ]]; then
+        sudo apt -y update
+    elif [[ $ID == "fedora" ]]; then
+        sudo dnf -y update
+    else
+        echo "You are using '$ID LINUX DISTRO' which is not supported for this script  !!!!!"
+        exit 1
+    fi
+}
+update_system
 install_package() {
 
     local package_name="$1"
@@ -72,19 +75,11 @@ install_package() {
 
 }
 
-if [[ $ID == "ubuntu" ]]; then
-    sudo apt update
-elif [[ $ID == "fedora" ]]; then
-    sudo dnf update
-else
-    echo "You are using '$ID LINUX DISTRO' which is not supported for this script  !!!!!"
-fi
-
 # Installing Basic System Packages
 
 if [[ $ID == "ubuntu" ]]; then
     echo "Installing Ubuntu Packages....."
-    packages=("git" "curl" "wget" "build-essential" "htop" "bpytop" "clang" "cargo" "libc6-i386" "libc6-x32" "libu2f-udev" "samba-common-bin" "unrar" "linux-headers-$(uname -r)" "linux-headers-generic" "git" "unzip" "ntfs-3g" "p7zip" "bzip2" "tar" "p7zip-full" "openjdk-21-jdk" "python3-pip")
+    packages=("git" "curl" "wget" "build-essential" "htop" "bpytop" "clang" "cargo" "libc6-i386" "libc6-x32" "libu2f-udev" "samba-common-bin" "unrar" "linux-headers-$(uname -r)" "linux-headers-generic" "unzip" "ntfs-3g" "p7zip" "bzip2" "tar" "p7zip-full" "openjdk-21-jdk" "python3-pip")
 
     for pkg in "${packages[@]}"; do #due to double quoted the word will not split , so the  loop will run ones only
         install_package "$pkg"
@@ -123,14 +118,16 @@ else
     echo "This script is not made for $ID only supports ubuntu and fedora"
 fi
 
+# Trying to install Homebrew if not available
 
-
-
-
+if [[ ! command -v brew &>/dev/null ]];then
+    echo "Homebrew is not installed!!!"
 
 
 #FEDORA
 #  android-tools
 # java-21-openjdk.x86_64
-
+################################################################################################
+# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"    ## this is the path of homebrew
+################################################################################################
 # htop clang cargo curl wget git unzip ntfs-3g p7zip-full

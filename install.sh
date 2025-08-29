@@ -4,7 +4,7 @@ set -euo pipefail
 
 # First Checked whether the user is using linux operating system
 
-LOG_FILE="/tmp/system-setup-$(date +%Y%m%d-%H%M%S).log"
+# LOG_FILE="/tmp/system-setup-$(date +%Y%m%d-%H%M%S).log"
 
 if [[ ! -f /etc/os-release ]]; then
     echo "You are not using linux operating system"
@@ -118,11 +118,53 @@ else
     echo "This script is not made for $ID only supports ubuntu and fedora"
 fi
 
+# Function to detech the user's shell
+detect_shell() {
+    # Get user's default shell
+    local user_shell=$(basename "$SHELL")
+    echo "$user_shell"
+}
+
+# Function to update shell configuration
+update_shell_config() {
+    local shell_type="$1"
+    local brew_path="/home/linuxbrew/.linuxbrew/bin/brew"
+}
+
+# Function to update shell configuration
+    
+
 # Trying to install Homebrew if not available
 
-if [[ ! command -v brew &>/dev/null ]];then
-    echo "Homebrew is not installed!!!"
+if ! command -v brew &>/dev/null;then
+    echo "Homebrew not found. Would you like to install it? [Y/n]"
+    read -r response
 
+    # Set default value if response is empty
+    response=${response:-Y}
+
+    if [[ "$response" =~ ^[Yy]$ ]]; then
+        echo "Installing Homebrew...."
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    
+    # Add Homebrew to PATH
+    echo >> "$HOME/.zshrc"
+    echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> "$HOME/.zshrc"
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+    echo "Homebrew installed successfully!"
+    else
+        echo "Homebrew installed skipped."
+        exit 1
+    fi
+else
+    echo "Homebrew is already installed."
+fi
+
+
+
+
+    
 
 #FEDORA
 #  android-tools
